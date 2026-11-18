@@ -143,12 +143,12 @@ Errors: 404 for an unknown id, 409 when the claim's state doesn't allow the oper
 
 **Why polling the whole queue:** 25 claims is a small response, and refetching them every two seconds is simpler than tracking changes.
 
-- [ ] Vitest tests cover the queue's rows, state labels, counts and money format against a stubbed `fetch`. TypeScript coverage is 80% or more
-- [ ] `npm run e2e` passes: the queue shows 25 claims, with CLM-1001 Waiting
-- [ ] In the browser, through the Playwright MCP server: `http://localhost:5173` shows the four counts and 25 rows in the brand fonts and colors, checked with screenshots in light and dark mode
-- [ ] In the browser: after `curl -X POST http://localhost:8000/api/claims/CLM-1001/start`, the row changes to In progress within a few seconds without a reload. `npm run seed` then resets the database
-- [ ] `npm run check:ts` passes
-- [ ] `docs/STATUS.md` updated, and committed with the pre-commit hook passing
+- [x] Vitest tests cover the queue's rows, state labels, counts and money format against a stubbed `fetch`. TypeScript coverage is 80% or more
+- [x] `npm run e2e` passes: the queue shows 25 claims, with CLM-1001 Waiting
+- [x] In the browser, through the Playwright MCP server: `http://localhost:5173` shows the four counts and 25 rows in the brand fonts and colors, checked with screenshots in light and dark mode
+- [x] In the browser: after `curl -X POST http://localhost:8000/api/claims/CLM-1001/start`, the row changes to In progress within a few seconds without a reload. `npm run seed` then resets the database
+- [x] `npm run check:ts` passes
+- [x] `docs/STATUS.md` updated, and committed with the pre-commit hook passing
 
 ## Phase 5: The claim page and the instructions page
 

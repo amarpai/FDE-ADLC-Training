@@ -1,6 +1,6 @@
 # Status
 
-The pilot is being built from `docs/PLAN.md`. Phases 1 to 3 of 6 are done.
+The pilot is being built from `docs/PLAN.md`. Phases 1 to 4 of 6 are done.
 
 ## What's built
 
@@ -10,8 +10,8 @@ The pilot is being built from `docs/PLAN.md`. Phases 1 to 3 of 6 are done.
   - Paying refuses a payout over $1,000 until a handler signs off. Signing off releases the payment.
   - The agent's instructions are in `backend/instructions.md`, served by `GET /api/instructions`.
 - `agent/`: the UnderCover Agent, LangChain's `create_agent` on OpenRouter. `run(claim_id, thread_id)` starts the claim, builds its system prompt from the instructions and the policy wording (both from the API), and posts each step to the backend as it works. Its five tools each call one backend operation: `get_claim`, `get_policy`, `get_claim_history`, `record_decision` and `pay_claim`.
-- `dashboard/`: one page that shows whether the backend is up
-- `e2e/`: one test of that page
+- `dashboard/`: React and Vite with `react-router`, in the UnderCover brand, in light and dark mode. The queue page shows a count for each state and every claim with its decision and payout, and it updates every two seconds.
+- `e2e/`: Playwright tests. They run their own backend on port 8001, on a fresh `e2e/undercover.db`, and their own dashboard on port 5174, so they can run alongside `npm run dev`.
 
 ## How to run it
 

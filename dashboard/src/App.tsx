@@ -1,19 +1,25 @@
-import { useEffect, useState } from "react";
+import { NavLink, Route, Routes } from "react-router";
+import { Queue } from "./Queue";
 
 export function App() {
-  const [status, setStatus] = useState("checking");
-
-  useEffect(() => {
-    void fetch("/api/health")
-      .then((response) => (response.ok ? "up" : "down"))
-      .catch(() => "down")
-      .then(setStatus);
-  }, []);
-
   return (
-    <main>
-      <h1>UnderCover</h1>
-      <p>Backend: {status}</p>
-    </main>
+    <>
+      <header className="header">
+        <NavLink to="/" className="brand">
+          UnderCover <span className="tagline">Claims desk</span>
+        </NavLink>
+        <nav aria-label="Main">
+          <NavLink to="/" end>
+            Queue
+          </NavLink>
+          <NavLink to="/instructions">Instructions</NavLink>
+        </nav>
+      </header>
+      <main>
+        <Routes>
+          <Route path="/" element={<Queue />} />
+        </Routes>
+      </main>
+    </>
   );
 }
