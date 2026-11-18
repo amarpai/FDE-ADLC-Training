@@ -1,5 +1,11 @@
+import socket
+import threading
+import time
+from concurrent.futures import ThreadPoolExecutor
 from contextlib import closing
 
+import httpx
+import uvicorn
 from fastapi.testclient import TestClient
 
 from backend import db
@@ -108,3 +114,31 @@ def test_list_handlers(client):
 def test_get_policy_wording(client):
     text = client.get("/api/policy-wording").json()["text"]
     assert text == (db.DATA / "policy_wording.md").read_text(encoding="utf-8")
+
+
+def test_get_instructions(client):
+    text = client.get("/api/instructions").json()["text"]
+    assert text.startswith("# The UnderCover Agent")
+    assert "record_decision" in text
+
+
+def test_concurrent_requests(client):
+    """The agent's parallel tool calls reach a real server at the same time."""
+    sock = socket.socket()
+    sock.bind(("127.0.0.1", 0))
+    server = uvicorn.Server(uvicorn.Config(app, log_level="warning"))
+    thread = threading.Thread(target=server.run, kwargs={"sockets": [sock]})
+    thread.start()
+    while not server.started:
+        time.sleep(0.01)
+    base = f"http://127.0.0.1:{sock.getsockname()[1]}"
+    paths = ["/api/claims/CLM-1001", "/api/policies/POL-2001", "/api/policies/BAD"]
+    try:
+        with ThreadPoolExecutor(max_workers=8) as pool:
+            codes = list(
+                pool.map(lambda p: httpx.get(base + p).status_code, paths * 10)
+            )
+    finally:
+        server.should_exit = True
+        thread.join()
+    assert codes == [200, 200, 404] * 10

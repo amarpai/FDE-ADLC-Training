@@ -1,6 +1,6 @@
 # Status
 
-The pilot is being built from `docs/PLAN.md`. Phases 1 and 2 of 6 are done.
+The pilot is being built from `docs/PLAN.md`. Phases 1 to 3 of 6 are done.
 
 ## What's built
 
@@ -8,7 +8,8 @@ The pilot is being built from `docs/PLAN.md`. Phases 1 and 2 of 6 are done.
   - Read operations for the claims queue, a claim, a policy with its plan, a customer's claim history, the handlers and the policy wording.
   - The claim workflow: start a claim, record the agent's steps, record a decision, pay, and sign off. A claim goes from `waiting` to `in_progress`, then to `waiting_for_sign_off` (an approval over $1,000) or `decided`.
   - Paying refuses a payout over $1,000 until a handler signs off. Signing off releases the payment.
-- `agent/`: the skeleton's entry point `run(claim_id, thread_id)`, with one tool that calls the health route
+  - The agent's instructions are in `backend/instructions.md`, served by `GET /api/instructions`.
+- `agent/`: the UnderCover Agent, LangChain's `create_agent` on OpenRouter. `run(claim_id, thread_id)` starts the claim, builds its system prompt from the instructions and the policy wording (both from the API), and posts each step to the backend as it works. Its five tools each call one backend operation: `get_claim`, `get_policy`, `get_claim_history`, `record_decision` and `pay_claim`.
 - `dashboard/`: one page that shows whether the backend is up
 - `e2e/`: one test of that page
 
@@ -16,4 +17,5 @@ The pilot is being built from `docs/PLAN.md`. Phases 1 and 2 of 6 are done.
 
 - `npm run dev` starts the backend on port 8000 and the dashboard on port 5173
 - `npm run seed` deletes the database and seeds it again from `data/`
+- `npm run agent` works every waiting claim in queue order, and `npm run agent -- CLM-1001` works one claim. The backend must be running. It uses `openai/gpt-6-luna`, or the model in `MODEL_NAME`
 - `npm run check` runs every check

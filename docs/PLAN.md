@@ -120,16 +120,16 @@ Errors: 404 for an unknown id, 409 when the claim's state doesn't allow the oper
 
 **Why this shape:** the agent stays thin. The backend holds the rules and the records, and the agent reads, decides and records. That keeps the agent easy to test with a stub model.
 
-- [ ] `uv run pytest agent` passes, and no test calls a model. Stub-model tests cover these cases:
+- [x] `uv run pytest agent` passes, and no test calls a model. Stub-model tests cover these cases:
   - an approval under $1,000 is recorded and paid, with its steps posted in order
   - an approval over $1,000 where the stub tries to pay: the payment is refused, the tool reports the refusal, the claim is `waiting_for_sign_off`, and no payment is recorded
   - a decline
   - the command line picks only waiting claims
-- [ ] The agent's tool list is exactly the five tools, checked by a test
-- [ ] `curl -s http://localhost:8000/api/instructions` returns the instructions
-- [ ] Live check with the real model: `npm run agent -- CLM-1001` prints its decision, and `GET /api/claims/CLM-1001` shows `decided` or `waiting_for_sign_off`, with an outcome, a payout, reasons of two or three sentences and a policy section. `GET /api/claims/CLM-1001/steps` lists its tool calls in order. This costs one claim's worth of API spend
-- [ ] `npm run seed` resets the database, and `npm run check:python` passes
-- [ ] `docs/STATUS.md` updated, and committed with the pre-commit hook passing
+- [x] The agent's tool list is exactly the five tools, checked by a test
+- [x] `curl -s http://localhost:8000/api/instructions` returns the instructions
+- [x] Live check with the real model: `npm run agent -- CLM-1001` prints its decision, and `GET /api/claims/CLM-1001` shows `decided` or `waiting_for_sign_off`, with an outcome, a payout, reasons of two or three sentences and a policy section. `GET /api/claims/CLM-1001/steps` lists its tool calls in order. This costs one claim's worth of API spend
+- [x] `npm run seed` resets the database, and `npm run check:python` passes
+- [x] `docs/STATUS.md` updated, and committed with the pre-commit hook passing
 
 ## Phase 4: The dashboard and the queue
 

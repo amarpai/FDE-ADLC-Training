@@ -55,7 +55,9 @@ def path() -> Path:
 
 def connect() -> sqlite3.Connection:
     """Open a connection whose rows can be read by column name."""
-    conn = sqlite3.connect(path())
+    # FastAPI opens, uses and closes a request's connection on different threads,
+    # one at a time, and each connection serves only one request.
+    conn = sqlite3.connect(path(), check_same_thread=False)
     conn.row_factory = sqlite3.Row
     return conn
 
