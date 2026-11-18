@@ -182,10 +182,10 @@ Errors: 404 for an unknown id, 409 when the claim's state doesn't allow the oper
 
 **Cost:** this phase runs the agent on all 25 claims, at a handful of model calls each, on `openai/gpt-6-luna`. To run it free, set `MODEL_NAME=openrouter/free` in `.env`, but expect it to be slower and to hit the free model's daily limits.
 
-- [ ] After `npm run seed`, `npm run agent` works all 25 claims, printing one decision line per claim
-- [ ] In the browser, a claim's steps appear one by one while the agent works on it
-- [ ] Every claim ends `decided` or `waiting_for_sign_off`, each with reasons and a policy section, and the report lists how many were approved, declined and referred
-- [ ] No claim with a payout over $1,000 has a payment without a sign-off, checked against `GET /api/claims`
-- [ ] In the browser, signing off one claim that is waiting for sign-off makes it Decided and paid
-- [ ] `docs/STATUS.md` describes the pilot as built and how to run it
-- [ ] `npm run check` passes in full, and committed with the pre-commit hook passing
+- [x] After `npm run seed`, `npm run agent` works all 25 claims, printing one decision line per claim
+- [x] In the browser, a claim's steps appear one by one while the agent works on it
+- [x] Every claim ends `decided` or `waiting_for_sign_off`, each with reasons and a policy section, and the report lists how many were approved, declined and referred
+- [x] No claim with a payout over $1,000 has a payment without a sign-off, checked against `GET /api/claims`
+- [x] In the browser, signing off one claim that is waiting for sign-off makes it Decided and paid
+- [x] `docs/STATUS.md` describes the pilot as built and how to run it
+- [x] `npm run check` passes in full, and committed with the pre-commit hook passing

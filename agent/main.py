@@ -19,6 +19,8 @@ load_dotenv(override=True)
 BACKEND_URL = "http://localhost:8000"
 OPENROUTER_BASE_URL = "https://openrouter.ai/api/v1"
 DEFAULT_MODEL = "openai/gpt-6-luna"
+# Enough retries, with backoff, to wait out a rate limit of requests per minute.
+MAX_RETRIES = 10
 
 
 def backend() -> httpx.Client:
@@ -88,6 +90,7 @@ def model() -> ChatOpenAI:
         base_url=OPENROUTER_BASE_URL,
         api_key=SecretStr(os.environ["OPENROUTER_API_KEY"]),
         reasoning_effort=None if name else "low",
+        max_retries=MAX_RETRIES,
     )
 
 
