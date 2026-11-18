@@ -23,6 +23,28 @@ CREATE TABLE claims (
     status TEXT NOT NULL,
     record TEXT NOT NULL
 );
+CREATE TABLE decisions (
+    claim_id TEXT PRIMARY KEY REFERENCES claims,
+    outcome TEXT NOT NULL,
+    payout REAL NOT NULL,
+    reasons TEXT NOT NULL,
+    policy_section TEXT NOT NULL,
+    decided_at TEXT NOT NULL,
+    signed_off_by TEXT REFERENCES handlers,
+    signed_off_at TEXT
+);
+CREATE TABLE payments (
+    claim_id TEXT PRIMARY KEY REFERENCES claims,
+    amount REAL NOT NULL,
+    paid_at TEXT NOT NULL
+);
+CREATE TABLE steps (
+    step_id INTEGER PRIMARY KEY AUTOINCREMENT,
+    claim_id TEXT NOT NULL REFERENCES claims,
+    kind TEXT NOT NULL,
+    content TEXT NOT NULL,
+    created_at TEXT NOT NULL
+);
 """
 
 

@@ -1,10 +1,56 @@
 """The shapes of the records the API reads and writes."""
 
-from typing import Literal
+from typing import Literal, Self
 
-from pydantic import BaseModel
+from pydantic import BaseModel, Field, model_validator
 
 Status = Literal["waiting", "in_progress", "waiting_for_sign_off", "decided"]
+Outcome = Literal["approve", "decline", "refer"]
+StepKind = Literal["tool_call", "tool_result", "message"]
+
+
+class DecisionRequest(BaseModel):
+    outcome: Outcome
+    payout: float = Field(ge=0)
+    reasons: str = Field(min_length=1)
+    policy_section: str = Field(min_length=1)
+
+    @model_validator(mode="after")
+    def payout_matches_outcome(self) -> Self:
+        if (self.outcome == "approve") != (self.payout > 0):
+            raise ValueError(
+                "An approval needs a payout above $0, "
+                "and a decline or referral a payout of $0"
+            )
+        return self
+
+
+class Decision(DecisionRequest):
+    decided_at: str
+    signed_off_by: str | None
+    signed_off_at: str | None
+
+
+class PaymentRequest(BaseModel):
+    amount: float
+
+
+class Payment(PaymentRequest):
+    paid_at: str
+
+
+class SignOffRequest(BaseModel):
+    handler_id: str
+
+
+class StepRequest(BaseModel):
+    kind: StepKind
+    content: str
+
+
+class Step(StepRequest):
+    step_id: int
+    created_at: str
 
 
 class Item(BaseModel):
@@ -27,6 +73,8 @@ class ClaimSummary(BaseModel):
     amount_claimed: float
     submitted_on: str
     status: Status
+    decision: Decision | None
+    payment: Payment | None
 
 
 class Claim(ClaimSummary):

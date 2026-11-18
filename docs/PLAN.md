@@ -95,12 +95,12 @@ Errors: 404 for an unknown id, 409 when the claim's state doesn't allow the oper
 
 **Why now:** the rules belong in the backend, so they are built and tested before an agent exists that could get them wrong.
 
-- [ ] Tests cover every state change and every refusal: deciding a waiting claim, deciding twice, paying a declined claim, paying the wrong amount, paying twice, signing off a claim that doesn't need it, and an unknown handler
-- [ ] The key test passes: a claim approved at $1,250.00 refuses `pay_claim` with 409 and records no payment. After `sign_off` by HND-01 it is `decided` and paid $1,250.00
-- [ ] The boundary test passes: $1,000.00 pays straight away, and $1,000.01 waits for sign-off
-- [ ] Against the dev server, these curl calls do what they should: start CLM-1001, record an approval of $420.00 and pay $420.00, which leaves the claim `decided` and paid. Recording a decision on waiting CLM-1002 returns 409. `npm run seed` then resets the database
-- [ ] Python coverage is 80% or more, and `npm run check:python` passes
-- [ ] `docs/STATUS.md` updated, and committed with the pre-commit hook passing
+- [x] Tests cover every state change and every refusal: deciding a waiting claim, deciding twice, paying a declined claim, paying the wrong amount, paying twice, signing off a claim that doesn't need it, and an unknown handler
+- [x] The key test passes: a claim approved at $1,250.00 refuses `pay_claim` with 409 and records no payment. After `sign_off` by HND-01 it is `decided` and paid $1,250.00
+- [x] The boundary test passes: $1,000.00 pays straight away, and $1,000.01 waits for sign-off
+- [x] Against the dev server, these curl calls do what they should: start CLM-1001, record an approval of $420.00 and pay $420.00, which leaves the claim `decided` and paid. Recording a decision on waiting CLM-1002 returns 409. `npm run seed` then resets the database
+- [x] Python coverage is 80% or more, and `npm run check:python` passes
+- [x] `docs/STATUS.md` updated, and committed with the pre-commit hook passing
 
 ## Phase 3: The UnderCover Agent
 
