@@ -224,3 +224,211 @@ tbody tr:hover {
 .chip.decided {
   background: var(--sea-green);
 }
+
+.chip.approve {
+  background: var(--sea-green);
+}
+
+.chip.refer {
+  background: var(--marigold);
+}
+
+.chip.decline {
+  background: var(--coral);
+}
+
+.claim-header h1 {
+  margin-top: 0.75rem;
+}
+
+.claim-header h1 .mono {
+  margin-right: 0.35rem;
+}
+
+.claim-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
+  gap: 1rem;
+  align-items: start;
+}
+
+@media (max-width: 900px) {
+  .claim-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+.stack {
+  display: grid;
+  gap: 1rem;
+}
+
+.stack .panel p:last-child {
+  margin-bottom: 0;
+}
+
+.outcome {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 0;
+}
+
+.outcome .chip {
+  font-size: 0.95rem;
+  padding: 0.25rem 0.85rem;
+}
+
+.payout {
+  font-size: 1.5rem;
+  font-weight: 500;
+}
+
+.reasons {
+  font-size: 1.05rem;
+}
+
+.paid {
+  color: var(--sea-green-ink);
+  font-weight: 600;
+}
+
+dl {
+  display: grid;
+  grid-template-columns: max-content 1fr;
+  gap: 0.4rem 1rem;
+  margin: 0;
+}
+
+dt {
+  color: var(--muted);
+}
+
+dd {
+  margin: 0;
+}
+
+.total td {
+  font-weight: 600;
+}
+
+.document + .document {
+  margin-top: 1rem;
+}
+
+.document h3 {
+  font-size: 1rem;
+  margin-bottom: 0.25rem;
+}
+
+.document h3 .muted {
+  font-weight: 400;
+  font-size: 0.85rem;
+  margin-left: 0.35rem;
+}
+
+.document p {
+  margin: 0;
+}
+
+.history,
+.steps {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: 0.75rem;
+}
+
+.steps li {
+  background: var(--sunken);
+  border-radius: 10px;
+  padding: 0.6rem 0.8rem;
+}
+
+.steps p {
+  margin: 0.2rem 0 0;
+}
+
+.step-label {
+  font-size: 0.8rem;
+}
+
+.call {
+  overflow-wrap: anywhere;
+}
+
+pre {
+  font-family: var(--mono);
+  font-size: 0.8rem;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  margin: 0.4rem 0 0;
+}
+
+.document-text {
+  font-family: var(--sans);
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+
+details summary {
+  cursor: pointer;
+  font-weight: 500;
+}
+
+details.panel {
+  margin-top: 1rem;
+}
+
+.sign-off {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: end;
+  gap: 0.75rem;
+  margin-top: 1rem;
+  padding: 1rem;
+  border-radius: 10px;
+  background: var(--sunken);
+}
+
+.sign-off label {
+  display: grid;
+  gap: 0.25rem;
+  font-weight: 500;
+}
+
+select,
+button {
+  font: inherit;
+  border-radius: 8px;
+  padding: 0.45rem 0.75rem;
+}
+
+select {
+  border: 1px solid var(--rule);
+  background: var(--panel);
+  color: var(--ink);
+}
+
+button {
+  border: none;
+  background: var(--sea-green);
+  color: var(--midnight);
+  font-weight: 600;
+  cursor: pointer;
+}
+
+button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.sign-off .notice {
+  flex-basis: 100%;
+  margin: 0;
+}
+
+.claim-header .chip {
+  margin-right: 0.4rem;
+}

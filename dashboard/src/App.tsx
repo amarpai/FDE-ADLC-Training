@@ -1,4 +1,6 @@
 import { NavLink, Route, Routes } from "react-router";
+import { ClaimPage } from "./ClaimPage";
+import { Instructions } from "./Instructions";
 import { Queue } from "./Queue";
 
 export function App() {
@@ -18,6 +20,8 @@ export function App() {
       <main>
         <Routes>
           <Route path="/" element={<Queue />} />
+          <Route path="/claims/:claimId" element={<ClaimPage />} />
+          <Route path="/instructions" element={<Instructions />} />
         </Routes>
       </main>
     </>

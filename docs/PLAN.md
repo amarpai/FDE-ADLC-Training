@@ -166,15 +166,15 @@ Errors: 404 for an unknown id, 409 when the claim's state doesn't allow the oper
 
 **Why one page per claim:** a handler reviewing a decision needs the story, the documents, the policy and the agent's reasons side by side.
 
-- [ ] Vitest tests cover the claim page in each state, the steps list, the sign-off control (shown only while waiting for sign-off) and the instructions page
-- [ ] `e2e/claim.spec.ts` passes. It plays the agent through the API, so no model is called:
+- [x] Vitest tests cover the claim page in each state, the steps list, the sign-off control (shown only while waiting for sign-off) and the instructions page
+- [x] `e2e/claim.spec.ts` passes. It plays the agent through the API, so no model is called:
   - a claim approved and paid under $1,000 shows Decided, the reasons, the section, the steps and Paid
   - a claim approved at $1,250.00 has its payment refused through the API, shows Waiting for sign-off, and after Dana Whitfield signs off on the page shows Decided, Paid $1,250.00 and who signed off
   - a step posted while the page is open appears without a reload
-- [ ] `e2e/instructions.spec.ts` passes: the page shows the instructions and has no way to edit them
-- [ ] In the browser: clicking a row on the queue opens its claim page, and the back button returns to the queue
-- [ ] `npm run check:ts` and `npm run e2e` pass
-- [ ] `docs/STATUS.md` updated, and committed with the pre-commit hook passing
+- [x] `e2e/instructions.spec.ts` passes: the page shows the instructions and has no way to edit them
+- [x] In the browser: clicking a row on the queue opens its claim page, and the back button returns to the queue
+- [x] `npm run check:ts` and `npm run e2e` pass
+- [x] `docs/STATUS.md` updated, and committed with the pre-commit hook passing
 
 ## Phase 6: Working the queue end to end
 

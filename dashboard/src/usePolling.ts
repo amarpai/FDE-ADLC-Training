@@ -9,8 +9,8 @@ export interface Polled<T> {
   reload: () => void;
 }
 
-/** Fetch a path now and every two seconds, so the page stays current. */
-export function usePolling<T>(path: string): Polled<T> {
+/** Fetch a path now and, unless poll is false, every two seconds after. */
+export function usePolling<T>(path: string, poll = true): Polled<T> {
   const [data, setData] = useState<T>();
   const [failed, setFailed] = useState(false);
   const [version, setVersion] = useState(0);
@@ -32,12 +32,12 @@ export function usePolling<T>(path: string): Polled<T> {
         });
     };
     load();
-    const timer = setInterval(load, POLL_MS);
+    const timer = poll ? setInterval(load, POLL_MS) : undefined;
     return () => {
       active = false;
       clearInterval(timer);
     };
-  }, [path, version]);
+  }, [path, poll, version]);
 
   return { data, failed, reload };
 }
